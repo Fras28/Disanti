@@ -5,7 +5,7 @@ import ModalGen from "../Modal/ModalConfirmacion/Modal";
 import { Editer } from "../Categorias/Editer";
 import { useDispatch, useSelector } from "react-redux";
 import LoginComponent from "./LogIn/LogIn";
-import { asyncAllProducts, asyncAllSubCategoria } from "../redux/slice";
+import { asyncAllProducts, asyncAllSubCategoria, asyncProductComander } from "../redux/slice";
 import PdfGeneratos from "./PDF/pdf";
 import QRCodeGenerator from "./QrGen/QrGeneratos";
 import "./AdminPanel.css";
@@ -22,7 +22,8 @@ export const AdminPanel = () => {
   useEffect(() => {
     dispatch(asyncAllSubCategoria());
     dispatch(asyncAllProducts());
-  }, []);
+    dispatch(asyncProductComander())
+  }, [usuarioComander]);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);

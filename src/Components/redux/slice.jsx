@@ -173,7 +173,7 @@ const API_COMANDER_ART = process.env.REACT_APP_API_ARTICULOS_CATEGORIAS
 
 
 
-const comercio = 4;
+const comercio = 10;
 
 
 

@@ -21,9 +21,9 @@ export default function LandingPage(url) {
     <div className="animate__animated  animate__zoomIn">
       {!categorias ? <Spinner /> : null}
       <div className="naviLanding titCasa ">
-        <div className="logoL">
+        <div >
           <NavLink to={`/${id}`}>
-            <img        src={`${API}${comercio?.attributes?.logo?.data?.attributes?.url}`} alt="" width="150px" style={{backgroundColor:"white", borderRadius:"50%"}} />
+            <img        src={`${API}${comercio?.attributes?.logo?.data?.attributes?.url}`} alt="" className="logoStart" />
           </NavLink>
         </div>
         <div className="navi2">

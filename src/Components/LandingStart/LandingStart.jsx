@@ -67,12 +67,8 @@ export const Inicio = (url) => {
           <img
             src={`${API}${comercio?.attributes?.logo?.data?.attributes?.url}`}
             alt=""
-            style={{
-              maxWidth: "80%",
-              margin: "auto",
-              paddingTop: "2rem",
-              height: "200px",
-            }}
+        
+            className="logoStart"
           />
           {comercio?.attributes?.presentacion != null ? (
             <div className="contAlerStart">

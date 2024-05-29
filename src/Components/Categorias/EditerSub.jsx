@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CardsEdite } from "../Cards/CardsEdit.jsx";
-import { asyncAllProducts } from "../redux/slice.jsx";
-import ModalGen from "../Modal/ModalConfirmacion/Modal.jsx";
-import AddProduct from "../Comander/formVenta/formAddProd.jsx";
-import { CardsEditSub } from "../Cards/CardsEditSub.jsx";
+import { CardsEdite } from "../../../../ThiagoTest/src/Components/Cards/CardsEdit.jsx";
+import { asyncAllProducts } from "../../../../ThiagoTest/src/Components/redux/slice.jsx";
+import ModalGen from "../../../../ThiagoTest/src/Components/Modal/ModalConfirmacion/Modal.jsx";
+import AddProduct from "../../../../ThiagoTest/src/Components/Comander/formVenta/formAddProd.jsx";
+import { CardsEditSub } from "../../../../ThiagoTest/src/Components/Cards/CardsEditSub.jsx";
 
 export const EditerSub = () => {
   const dispatch = useDispatch();

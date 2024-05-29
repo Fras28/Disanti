@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
-  asyncCancelFav,
-  asyncfavProducts,
-  asyncPublishArtic,
   asyncPublishSubCat,
 } from "../../redux/slice";
 import "./Card.css";
-import ModalGen from "../../Modal/ModalConfirmacion/Modal";
-import EditProduct from "../../Comander/formVenta/formEditProd";
 import ModalEdit from "../../Modal/ModalConfirmacion/ModalEdit";
 import EditSub from "../../Comander/formVenta/formEditSub";
 

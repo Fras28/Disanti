@@ -60,7 +60,7 @@ export const CardEdite = ({ producto }) => {
       : { data: { publishedAt: currentDate } };
 
     try {
-      await dispatch(asyncPublishArtic(action, producto.id));
+      await dispatch(asyncPublishArtic(action, producto?.id));
       setIsPublished(!isPublished);
     } catch (error) {
       console.error("Error publishing/unpublishing the article:", error);
@@ -77,7 +77,7 @@ export const CardEdite = ({ producto }) => {
           width: "100%",
         }}
       >
-        <p className="nameProdEdit">{product.name}</p>
+        <p className="nameProdEdit">{product?.name}</p>
             <p className="priceEdit">${product?.price}</p>
         <div >
           <div className="cardContentEdit">

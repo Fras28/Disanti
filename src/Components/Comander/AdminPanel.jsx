@@ -13,16 +13,23 @@ import { EditerSub } from "../Categorias/EditerSub";
 
 const API = process.env.REACT_APP_API_STRAPI;
 
+// Función para detectar si es un dispositivo móvil
+const isMobileDevice = () => {
+  return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/.test(window.navigator.userAgent);
+};
+
 export const AdminPanel = () => {
   const dispatch = useDispatch();
   const [panel, setPanel] = useState("General");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const { usuarioComander, comercio,subCategorias, allProduct } = useSelector((state) => state.alldata);
+  const { usuarioComander, comercio, subCategorias, allProduct } = useSelector((state) => state.alldata);
 
   useEffect(() => {
     dispatch(asyncAllSubCategoria());
     dispatch(asyncAllProducts());
-    dispatch(asyncProductComander())
+    if (!isMobileDevice()) {
+      dispatch(asyncProductComander());
+    }
   }, [usuarioComander]);
 
   const toggleDropdown = () => {

@@ -58,7 +58,7 @@ export const CardEditeSub = ({ producto }) => {
       : { data: { publishedAt: currentDate } };
 
     try {
-      await dispatch(asyncPublishSubCat(action, producto.id));
+      await dispatch(asyncPublishSubCat(action, producto?.id));
       setIsPublished(!isPublished);
     } catch (error) {
       console.error("Error publishing/unpublishing the article:", error);
@@ -75,7 +75,7 @@ export const CardEditeSub = ({ producto }) => {
           width: "100%",
         }}
       >
-        <p className="nameProdEdit">{producto.name}</p>
+        <p className="nameProdEdit">{producto?.name}</p>
         <div >
           <div className="cardContentEdit">
           </div>

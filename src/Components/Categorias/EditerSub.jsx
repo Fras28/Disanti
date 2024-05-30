@@ -27,7 +27,7 @@ console.log(subCategorias[0]);
     } else {
       // Filtrar los productos basados en el valor de búsqueda
       const filtered = subCategorias[0].filter(product =>
-        product?.name?.toLowerCase().includes(value.toLowerCase())
+        product?.name?.toLowerCase().includes(value?.toLowerCase())
       );
       setFilteredProducts(filtered);
     }

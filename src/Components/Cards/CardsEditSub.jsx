@@ -6,7 +6,6 @@ import { CardEdite } from "./Card/CardEdit";
 import { CardEditeSub } from "./Card/CardEditSub";
 
 export const CardsEditSub = ({ sub }) => {
-  console.log(sub, "cardsedit sub");
   return (
     <div className="cartaEdit" >
       <div className="rowsCardEdit">

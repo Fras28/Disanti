@@ -120,7 +120,7 @@ export default function ModalConfirm({ total }) {
       >
         <DialogTitle className="infoNavi">
           <div>
-            <img src={Logo} alt="logo" width="100px" />
+            <img  src={`${API}${comercio?.attributes?.logo?.data?.attributes?.url}`}alt="logo" width="100px" />
           </div>
           <div style={{ marginLeft: "30%" }}>
             <button className="exit" onClick={handleClose}>

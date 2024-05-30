@@ -86,7 +86,7 @@ export const CardEdite = ({ producto }) => {
             <div className="divEditProd">
               <ModalEdit
                 txtBtn={editLogo}
-                Child={<EditProduct product={product} id={producto.id} />}
+                Child={<EditProduct product={product} id={producto?.id} />}
               />
             </div>
             <div className="toggleContainer">

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./formVenta.css";
 import { useDispatch } from "react-redux";
-import { asyncEditProd } from "../../redux/slice";
+import { asyncEditProd, asyncAllProducts } from "../../redux/slice";
 import Spinner from "../../assets/Spinner/Spinner";
 import ModalGen from "../../Modal/ModalConfirmacion/Modal";
 import AddProduct from "./formAddProd";
@@ -9,7 +9,6 @@ import AddProduct from "./formAddProd";
 const EditProduct = ({ product, id }) => {
   const dispatch = useDispatch();
 
-  // Estado inicial del formulario
   const initialFormData = {
     data: {
       name: "",
@@ -23,11 +22,9 @@ const EditProduct = ({ product, id }) => {
     },
   };
 
-  // Estado del formulario
   const [formData, setFormData] = useState(initialFormData);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Efecto para actualizar el estado del formulario cuando cambia el producto
   useEffect(() => {
     if (product) {
       setFormData({
@@ -40,16 +37,13 @@ const EditProduct = ({ product, id }) => {
           txtPrecio2: product?.txtPrecio2 || "",
           txtPrecio3: product?.txtPrecio3 || "",
           detail: product?.detail || "",
-          
         },
       });
     } else {
-      // Reiniciar el estado del formulario si no hay ningún producto
       setFormData(initialFormData);
     }
   }, [product]);
 
-  // Manejador para cambios en el formulario
   const handleInputChange = async (e) => {
     const { name, value } = e.target;
     setFormData((prevFormData) => ({
@@ -60,7 +54,6 @@ const EditProduct = ({ product, id }) => {
     }));
   };
 
-  // Manejador para envío del formulario
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -78,12 +71,13 @@ const EditProduct = ({ product, id }) => {
 
     dispatch(asyncEditProd(dataToSubmit, id)).then(() => {
       setIsLoading(false);
+      dispatch(asyncAllProducts()); // Despachar para recargar la lista de productos
     });
   };
+
   return (
     <form onSubmit={handleSubmit} className="Formix2">
       <h2>Editar Producto</h2>
- 
       <div className="form-group">
         <label className="labelform" htmlFor="name">Nombre del Producto: id {id}</label>
         <input
@@ -116,7 +110,7 @@ const EditProduct = ({ product, id }) => {
           />
         </div>
       </div>
-      <div  className="form-group" style={{ display: "flex" }}>
+      <div className="form-group" style={{ display: "flex" }}>
         <div>
           <label className="labelform" htmlFor="txtPrecio2">TextPrecio2:</label>
           <input
@@ -171,7 +165,6 @@ const EditProduct = ({ product, id }) => {
           style={{ width: "100%", height: "50px" }}
         />
       </div>
-
       <button type="submit" disabled={isLoading}>Guardar Cambios</button>
       {isLoading && <Spinner />}
     </form>

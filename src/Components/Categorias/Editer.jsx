@@ -13,24 +13,20 @@ export const Editer = () => {
     dispatch(asyncAllProducts());
   }, []);
 
-  // Estado para el valor de búsqueda
   const [searchValue, setSearchValue] = useState("");
   const [filteredProducts, setFilteredProducts] = useState([]);
 
-  // Efecto secundario para actualizar filteredProducts cuando allProduct cambie
   useEffect(() => {
     setFilteredProducts(allProduct);
-  }, []);
+  }, [allProduct]);
 
   const handleSearchChange = (e) => {
     const value = e?.target?.value;
     setSearchValue(value);
 
-    // Si el valor de búsqueda está vacío, enviar directamente allProduct
     if (value === "") {
       setFilteredProducts(allProduct);
     } else {
-      // Filtrar los productos basados en el valor de búsqueda
       const filtered = allProduct.filter(product =>
         product?.attributes?.name?.toLowerCase().includes(value.toLowerCase())
       );
@@ -40,7 +36,7 @@ export const Editer = () => {
 
   return (
     <div className="containerEdit">
-        <div className="searchBar">
+      <div className="searchBar">
         <label htmlFor="">Buscar</label>
         <input
           type="search"
@@ -50,7 +46,7 @@ export const Editer = () => {
           onChange={handleSearchChange}
           placeholder="Buscar producto..."
         />
-        </div>
+      </div>
       <div>
         <h2 style={{paddingTop:"2.5rem"}}>Edicion de productos</h2>
         <ModalGen Child={<AddProduct />} txtBtn="+ Producto" />

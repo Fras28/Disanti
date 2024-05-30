@@ -38,7 +38,7 @@ const Carousel = ({ logos }) => {
         {logos.map((logo, index) => (
           <div key={index} className="logo-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <a href={logo} target='_blank' className="logo-container" style={{display:"flex",justifyContent:"center"}}>
-              <img src={logo} alt={`Cliente ${index + 1}`} height="100px" width="200px" />
+              <img src={logo} alt={`Cliente ${index + 1}`} height="100px" width="200px" style={{objectFit:"contain"}} />
             </a>
           </div>
         ))}

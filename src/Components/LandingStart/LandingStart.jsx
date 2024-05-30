@@ -9,6 +9,7 @@ import Carousel from "../assets/Carousel/Carousel";
 import Morton from "../assets/PlaceHolder.jpg";
 import Stella from "../assets/stellaArtois.png"
 import CasDoCafe from "../assets/CasaDoCafe.png"
+import elPalacio from "../assets/ElPalacio.png"
 const API = process.env.REACT_APP_API_STRAPI;
 export const Inicio = (url) => {
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ export const Inicio = (url) => {
   }
 
   
-  const Logos = [Stella, CasDoCafe, Morton, Morton, Morton, Morton, Morton];
+  const Logos = [Stella, CasDoCafe, elPalacio];
 
   return (
     <div

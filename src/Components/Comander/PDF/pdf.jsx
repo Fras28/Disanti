@@ -12,25 +12,36 @@ const PdfGeneratos = () => {
     setPageSize(e.target.value);
   };
 
-  const generarPDF = () => {
-    const quality = 'high'; // Configurar la calidad de impresión a alta
-    const doc = new jsPDF('landscape', 'mm', 'a4', true, quality); // Reemplaza 'pageSize' por 'a4'
-  
+  const loadImage = (url) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = 'Anonymous';
+      img.onload = () => resolve(img);
+      img.onerror = (err) => reject(err);
+      img.src = url;
+    });
+  };
+
+  const generarPDF = async () => {
+    const quality = 'high';
+    const doc = new jsPDF('landscape', 'mm', 'a4', true, quality);
     const pageWidth = doc.internal.pageSize.width;
     const pageHeight = doc.internal.pageSize.height;
-  
-    // Add full-page image as the cover
-    const imgData = Fondo; // Replace with your image base64 data or URL
-    doc.addImage(imgData, 'PNG', 0, 0, pageWidth, pageHeight);
-  
-    // Add new page for the content
+
+    try {
+      const img = await loadImage(Fondo);
+      doc.addImage(img, 'PNG', 0, 0, pageWidth, pageHeight);
+    } catch (err) {
+      console.error("Error loading image", err);
+    }
+
     doc.addPage();
   
     const margin = 10;
     const lineHeight = 5;
     const halfLineHeight = lineHeight / 2;
     const columnWidth = (pageWidth - 3 * margin) / 2;
-    let currentPage = 2; // Start from the second page for content
+    let currentPage = 2;
     let currentY = margin;
     let currentColumn = 0;
   
@@ -51,20 +62,20 @@ const PdfGeneratos = () => {
     };
   
     const calculateSubCategoryHeight = (subCat) => {
-      let height = lineHeight; // For subcategory title
+      let height = lineHeight;
       subCat?.attributes?.articulos?.data?.forEach((articulo) => {
-        height += halfLineHeight; // For each article title with reduced spacing
+        height += halfLineHeight;
         if (articulo?.attributes?.detail) {
           const detalleLines = doc.splitTextToSize(articulo?.attributes?.detail, columnWidth - 40);
           height += detalleLines.length * halfLineHeight;
         }
-        height += halfLineHeight; // For spacing
+        height += halfLineHeight;
       });
       return height;
     };
   
     const calculateCategoryHeight = (prod) => {
-      let height = lineHeight + 10; // For category title
+      let height = lineHeight + 10;
       if (prod?.attributes?.sub_categorias?.data?.length > 0) {
         height += calculateSubCategoryHeight(prod.attributes.sub_categorias.data[0]);
       }
@@ -86,35 +97,29 @@ const PdfGeneratos = () => {
   
       const categoryHeight = calculateCategoryHeight(prod);
   
-      // Verificar si hay espacio suficiente en la columna actual para la categoría y al menos una subcategoría
       if (currentY + categoryHeight > doc.internal.pageSize.height - margin) {
         switchColumn();
       }
   
-      // Añadir categoría
       textLines.forEach((line) => {
         const x = margin + currentColumn * (columnWidth + margin);
         const lineWidth = doc.getTextWidth(line);
-        const textXStart = x + (columnWidth - lineWidth) / 2; // Centrar el texto en la columna
+        const textXStart = x + (columnWidth - lineWidth) / 2;
         const textY = currentY + lineHeight;
   
-        // Dibujar el texto de la categoría centrado
         doc.text(line, textXStart, textY);
         
-        const lineXStart = x; // Comienzo de la línea en el borde izquierdo de la columna
-        const lineXEnd = x + columnWidth; // Fin de la línea en el borde derecho de la columna
+        const lineXStart = x;
+        const lineXEnd = x + columnWidth;
         const lineY = currentY + lineHeight + 1;
   
-        // Verificar si la línea excede los límites de la página
         if (lineXStart < margin || lineXEnd > doc.internal.pageSize.width - margin) {
-          // Si la línea se extiende fuera de los límites de la página, ajustar sus extremos
           const adjustedLineXStart = Math.max(lineXStart, margin);
           const adjustedLineXEnd = Math.min(lineXEnd, doc.internal.pageSize.width - margin);
           doc.setDrawColor(55, 90, 57);
           doc.setLineWidth(0.5);
           doc.line(adjustedLineXStart, lineY, adjustedLineXEnd, lineY);
         } else {
-          // Si la línea está dentro de los límites de la página, dibujarla normalmente
           doc.setDrawColor(55, 90, 57);
           doc.setLineWidth(0.5);
           doc.line(lineXStart, lineY, lineXEnd, lineY);
@@ -123,7 +128,6 @@ const PdfGeneratos = () => {
         currentY += lineHeight + 10;
       });
   
-      // Añadir subcategorías y artículos
       prod?.attributes?.sub_categorias?.data.forEach((subCat) => {
         const subCategoryName = subCat?.attributes?.name.replace(/\[[^\]]*\]/g, '');
   
@@ -133,16 +137,13 @@ const PdfGeneratos = () => {
   
         const subCategoryHeight = calculateSubCategoryHeight(subCat);
   
-        // Verificar si hay espacio suficiente en la columna actual para la subcategoría y sus artículos
         if (currentY + subCategoryHeight > doc.internal.pageSize.height - margin) {
           switchColumn();
-          // Si no hay suficiente espacio en la nueva columna, agregar una nueva página
           if (currentY + subCategoryHeight > doc.internal.pageSize.height - margin) {
             addNewPage();
           }
         }
   
-        // Añadir subcategoría
         doc.setFontSize(12);
         doc.setFont("helvetica", "bold");
         doc.setTextColor(0, 0, 0);
@@ -152,17 +153,14 @@ const PdfGeneratos = () => {
           currentY += lineHeight;
         });
   
-        // Añadir artículos
         subCat?.attributes?.articulos?.data.forEach((articulo) => {
           const nombreArticulo = articulo?.attributes?.name.padEnd(30, ".");
           const precioArticulo = `$${articulo?.attributes?.price}`.padStart(10, ".");
   
-          // Agregar nombreArticulo y precioArticulo en negrita
           doc.setFontSize(10);
           doc.setFont("helvetica", "bold");
           let articuloText = `\t\t${nombreArticulo}  ${precioArticulo}`;
   
-          // Restablecer la fuente para los detalles
           doc.setFont("helvetica", "normal");
   
           if (articulo?.attributes?.detail) {
@@ -181,7 +179,6 @@ const PdfGeneratos = () => {
           articuloTextLines.forEach((line) => {
             if (currentY + halfLineHeight > doc.internal.pageSize.height - margin) {
               switchColumn();
-              // Si no hay suficiente espacio en la nueva columna, agregar una nueva página
               if (currentY + halfLineHeight > doc.internal.pageSize.height - margin) {
                 addNewPage();
               }
@@ -200,8 +197,6 @@ const PdfGeneratos = () => {
   
     doc.save(`mi_carta_pagina_${currentPage}.pdf`);
   };
-  
-
 
   return (
     <div>

@@ -6,11 +6,16 @@ font-family: 'Sono', sans-serif; */
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 /* font-family: 'Montserrat', sans-serif; */
 
+*, *::after, *::before{
+  box-sizing: border-box;
+}
+
 .App {
   background-image: url("./Components/assets/FondoCuero.jpg");
   text-align: center;
   min-height: 100dvh;
   background-position: center;
+
 }
 .App-logo {
   height: 40vmin;

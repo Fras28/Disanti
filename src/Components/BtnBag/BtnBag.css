@@ -1,7 +1,10 @@
 .goBag{
-    position: sticky;
-    bottom: 10px;
-
+  box-sizing: border-box;
+    position: fixed;
+    bottom: 0;
+    background-color: ghostwhite;
+    padding: .5rem;
+    width: 100%;
 }
 .btnGoBag{
     width: 80%;

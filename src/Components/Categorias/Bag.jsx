@@ -18,7 +18,7 @@ export const BagXX = (id) => {
   let { allProduct } = useSelector((state) => state.alldata);
 
 
-console.log(favProd, 'productos favoritos');
+
 const valores = favProd.map((e) => parseInt(e.attributes.price, 10));
   let total = valores.reduce((a, b) => a + b, 0);
   return (

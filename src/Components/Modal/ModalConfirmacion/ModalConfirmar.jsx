@@ -98,7 +98,6 @@ export default function ModalConfirm({ total }) {
     }
   };
 
-  console.log(order);
   return (
     <div>
       <div>

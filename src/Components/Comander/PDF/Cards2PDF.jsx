@@ -6,8 +6,7 @@ import { useSelector } from "react-redux";
 import { CardPDF } from "./CardPDF";
 
 export const Cards2PDF = ({ products }) => {
-  console.log("card - 2 - pdf", products?.attributes?.name);
-
+ 
 
   const processedName = products?.attributes?.name
     .split(/\(([^)]+)\)/)

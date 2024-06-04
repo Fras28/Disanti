@@ -10,7 +10,7 @@ export const EditerSub = () => {
   const { subCategorias } = useSelector((state) => state.alldata);
 
 
-console.log(subCategorias[0]);
+
   // Estado para el valor de búsqueda
   const [searchValue, setSearchValue] = useState("");
   const [filteredProducts, setFilteredProducts] = useState(subCategorias[0]);

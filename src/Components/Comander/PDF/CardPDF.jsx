@@ -6,7 +6,6 @@ import "../../Cards/Card/Card.css";
 export const CardPDF = ({ producto }) => {
 
 
-  console.log("Card - - - PDF",producto);
 
 
 

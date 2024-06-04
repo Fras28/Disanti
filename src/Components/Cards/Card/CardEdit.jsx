@@ -15,12 +15,12 @@ export const CardEdite = ({ producto }) => {
     price: [],
   });
 
-  const product = producto.attributes;
-  const [isPublished, setIsPublished] = useState(product.publishedAt !== null);
+  const product = producto?.attributes;
+  const [isPublished, setIsPublished] = useState(product?.publishedAt !== null);
   const [currentDate, setCurrentDate] = useState("");
 
   useEffect(() => {
-    setIsPublished(product.publishedAt !== null);
+    setIsPublished(product?.publishedAt !== null);
     setCurrentDate(getCurrentTimestamp());
   }, [product.publishedAt]);
 

@@ -53,7 +53,7 @@ const Nav = (id) => {
             <img
             src={`${API}${comercio?.attributes?.logo?.data?.attributes?.url}`}
               alt="logoCakes"
-              style={{ maxHeight: "60px" }}
+              style={{ maxHeight: "60px", borderRadius:"50%" }}
             />
           </NavLink>
         </div>
